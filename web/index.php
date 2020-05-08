@@ -41,6 +41,11 @@ $app->get('/load', function (Request $request) use ($app) {
 	return 'Welcome ' . json_encode($user, true);
 });
 
+$app->get('/cowsay', function() use($app) {
+  $app['monolog']->addDebug('cowsay');
+  return "<pre>".\Cowsayphp\Cow::say("Cool beans")."</pre>";
+});
+
 $app->get('/auth/callback', function (Request $request) use ($app) {
 	$redis = new Predis\Client(getenv('REDIS_URL'));
 
