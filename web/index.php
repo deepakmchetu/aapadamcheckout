@@ -21,7 +21,7 @@ $app['debug'] = true;
 // Our web handlers
 $app->get('/', function(Request $request) use ($app) {
   $app['monolog']->addDebug('logging output.');echo "<pre>";print_r($request);echo "</pre>";
- 	// return 'Welcome to Root! I got nothing.';
+ 	return 'Welcome to Root! I got nothing.';
 });
 
 $app->get('/load', function (Request $request) use ($app) {
