@@ -20,8 +20,6 @@ $app['debug'] = true;
 
 // Our web handlers
 $app->get('/', function(Request $request) use ($app) {
-	// $app['monolog']->addDebug('logging output.');
-	echo "<pre>";print_r($request);echo "</pre>";
 	$htmlContent =  file_get_contents('templates/index.html');
  	return $htmlContent;
 });
