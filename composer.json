@@ -3,11 +3,13 @@
     "silex/silex": "1.*",
     "guzzle/guzzle": "~3.7",
     "propel/propel1": "~1.6",
-    "colinmollenhour/credis": "~1.2",
     "realityking/hash_equals": "dev-master",
-    "vlucas/phpdotenv": "~2.4",
+    "predis/predis": "1.1.*@dev",
+    "alrik11es/cowsayphp": "^1.0",
+    "monolog/monolog": "^1.19",
     "firebase/php-jwt": "~4.0",
     "bigcommerce/api": "~3.0",
-    "xamin/handlebars.php": "~0.10"
+    "xamin/handlebars.php": "~0.10",
+    "vlucas/phpdotenv": "~2.4"
   }
 }

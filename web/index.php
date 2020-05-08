@@ -18,13 +18,19 @@ $dotenv->load();
 $app = new Application();
 $app['debug'] = true;
 
+// Our web handlers
+$app->get('/', function() use ($app) {
+  $app['monolog']->addDebug('logging output.');
+ return 'Welcome to Root! I got nothing.';
+});
+
 $app->get('/load', function (Request $request) use ($app) {
 
 	$data = verifySignedRequest($request->get('signed_payload'));
 	if (empty($data)) {
 		return 'Invalid signed_payload.';
 	}
-	$redis = new Credis_Client('localhost');
+	$redis = new Predis\Client(getenv('REDIS_URL'));
 	$key = getUserKey($data['store_hash'], $data['user']['email']);
 	$user = json_decode($redis->get($key), true);
 	if (empty($user)) {
@@ -35,7 +41,7 @@ $app->get('/load', function (Request $request) use ($app) {
 });
 
 $app->get('/auth/callback', function (Request $request) use ($app) {
-	$redis = new Credis_Client('localhost');
+	$redis = new Predis\Client(getenv('REDIS_URL'));
 
 	$payload = array(
 		'client_id' => clientId(),
@@ -77,7 +83,7 @@ $app->get('/remove-user', function(Request $request) use ($app) {
 	}
 
 	$key = getUserKey($data['store_hash'], $data['user']['email']);
-	$redis = new Credis_Client('localhost');
+	$redis = new Predis\Client(getenv('REDIS_URL'));
 	$redis->del($key);
 	return '[Remove User] '.$data['user']['email'];
 });
@@ -116,7 +122,7 @@ $app->get('/storefront/{storeHash}/customers/{jwtToken}/recently_purchased.html'
  */
 function getRecentlyPurchasedProductsHtml($storeHash, $customerId)
 {
-	$redis = new Credis_Client('localhost');
+	$redis = new Predis\Client(getenv('REDIS_URL'));
 	$cacheKey = "stores/{$storeHash}/customers/{$customerId}/recently_purchased_products.html";
 	$cacheLifetime = 60 * 5; // Set a 5 minute cache lifetime for this HTML block.
 
@@ -182,7 +188,7 @@ function configureBCApi($storeHash)
  */
 function getAuthToken($storeHash)
 {
-	$redis = new Credis_Client('localhost');
+	$redis = new Predis\Client(getenv('REDIS_URL'));
 	$authData = json_decode($redis->get("stores/{$storeHash}/auth"));
 	return $authData->access_token;
 }
