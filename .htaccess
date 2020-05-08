@@ -4,6 +4,9 @@ SetEnv BC_CLIENT_ID "jgbypg3fgsy2c4v5c0ebayxe7uio511"
 SetEnv BC_CLIENT_SECRET "07ce46b1e438f71d79aabcd42639ccc999e7a6ac835b56f19c4a1076f8d0fa89"
 SetEnv BC_CALLBACK_URL "https://aapadamcheckout.herokuapp.com/auth/callback"
 
+# Set up php variables
+php_value memory_limit 1024M
+
 RewriteEngine on
 #RewriteBase /
 
