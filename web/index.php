@@ -1,4 +1,7 @@
 <?php
+ 	
+//Set Access-Control-Allow-Origin with PHP
+header('Access-Control-Allow-Origin:*');
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
